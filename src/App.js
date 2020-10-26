@@ -39,11 +39,20 @@ class App extends Component {
   };
 
   render() {
+    const styleProps = {
+      backgroundColor: "white",
+      font: "inherit",
+      border: "1px solid purple",
+      padding: "8px",
+      cursor: "pointer"
+    };
+
     return (
       <div className="App">
         <h1>This is a react app</h1>
         <p>This is really working</p>
         <button
+          style={styleProps}
           onClick={() => this.switchNameHandler("Vaibhav")} // Passing args to function using arrow function
         >
           Switch Name
