@@ -1,59 +1,45 @@
-import React, { useState } from "react";
-import logo from "./logo.svg";
-import "./App.css";
-import Person from "./Person/Person";
+import React, { Component } from 'react';
+import './App.css';
+import Person from './Person/Person';
 
-const app = (props) => {
-  const [personsState, personsSetState] = useState({
-    persons: [
-      { name: "Max", age: 28 },
-      { name: "Manu", age: 13 },
-      { name: "Stella", age: 40 },
-    ],
-  });
+class App extends Component {
 
-  const [otherState, otherSetState] = useState("some other value");
+  state = {
+    persons:[
+      {name:"Max", age:28},
+      {name:"Manu", age:13},
+      {name:"Stella", age:40}
+    ]
+  }
 
-  console.log(personsState, otherState);
-
-  const switchNameHandler = () => {
+  switchNameHandler = () => {
     //console.log("Was Clicked!");
     /**
-     * NOTE: personsSetState() does not "MERGE" but "REPLACES" the current state
-     * with the new provided state. So we need to maintain state in slices in while
-     * using react hooks i.e. useState() by calling it multiple times for different
-     * slices of state separately.
+     * DON'T DO THIS: this.state.persons[0].name = "some name"
+     * As this will not let react know that the state has been updated
+     * and react will not be able to re-render the DOM with updated state.
      */
-    personsSetState({
-      persons: [
-        { name: "Vaibhav", age: 28 },
-        { name: "Manu", age: 13 },
-        { name: "Stella", age: 28 },
-      ],
+    this.setState({
+      persons:[
+        {name:"Vaibhav", age:28},
+        {name:"Manu", age:13},
+        {name:"Stella", age:28}
+      ]
     });
-  };
+  }
 
-  return (
-    <div className="App">
-      <h1>This is a react app</h1>
-      <p>This is really working</p>
-      <button onClick={switchNameHandler}>Switch Name</button>
-      <Person
-        name={personsState.persons[0].name}
-        age={personsState.persons[0].age}
-      />
-      <Person
-        name={personsState.persons[1].name}
-        age={personsState.persons[1].age}
-      >
-        And My hobby is racing.
-      </Person>
-      <Person
-        name={personsState.persons[2].name}
-        age={personsState.persons[2].age}
-      />
-    </div>
-  );
-};
+  render() {
+    return (
+      <div className="App">
+        <h1>This is a react app</h1>
+        <p>This is really working</p>
+        <button onClick={this.switchNameHandler}>Switch Name</button>
+        <Person name={this.state.persons[0].name} age={this.state.persons[0].age}/>
+        <Person name={this.state.persons[1].name} age={this.state.persons[1].age}>And My hobby is racing.</Person>
+        <Person name={this.state.persons[2].name} age={this.state.persons[2].age}/>
+      </div>
+    );
+  }
+}
 
-export default app;
+export default App;
