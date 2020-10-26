@@ -27,15 +27,27 @@ class App extends Component {
     });
   };
 
+  nameChangeHandler = (event) => {
+    console.log(event);
+    this.setState({
+      persons: [
+        { name: "Max", age: 28 },
+        { name: event.target.value, age: 13 },
+        { name: "Stella", age: 28 },
+      ],
+    });
+  };
+
   render() {
     return (
       <div className="App">
         <h1>This is a react app</h1>
         <p>This is really working</p>
-        <button onClick={() => this.switchNameHandler("Vaibhav")} // Passing args to function using arrow function
-        > 
+        <button
+          onClick={() => this.switchNameHandler("Vaibhav")} // Passing args to function using arrow function
+        >
           Switch Name
-        </button> 
+        </button>
         <Person
           name={this.state.persons[0].name}
           age={this.state.persons[0].age}
@@ -44,6 +56,7 @@ class App extends Component {
           name={this.state.persons[1].name}
           age={this.state.persons[1].age}
           click={this.switchNameHandler.bind(this, "Amit")} // This is how we can pass down reference to parent method to the child as prop
+          changed={this.nameChangeHandler}
         >
           And My hobby is racing.
         </Person>
